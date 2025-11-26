@@ -1,0 +1,7 @@
+{
+  "name": "POWERFUL REACH - Photos d'Examens",
+  "description": "A strategic dashboard for the Exam Photos project, featuring market analysis, economic modeling, and AI-powered tools for school discovery and assistance.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
