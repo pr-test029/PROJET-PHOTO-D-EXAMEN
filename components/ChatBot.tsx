@@ -24,7 +24,10 @@ const ChatBot: React.FC = () => {
   }, [messages, isOpen]);
 
   const handleSend = async () => {
-    if (!input.trim() || !chatSessionRef.current) return;
+    if (!input.trim()) return;
+    if (!chatSessionRef.current) {
+      chatSessionRef.current = createChatSession();
+    }
 
     const userMsg = input;
     setInput('');
