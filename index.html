@@ -4,18 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POWERFUL REACH – Projet Photos d’Examens</title>
+    <meta name="description" content="A strategic dashboard for the Exam Photos project, featuring market analysis, economic modeling, and AI-powered tools for school discovery and assistance.">
+    <meta property="og:title" content="POWERFUL REACH – Projet Photos d’Examens">
+    <meta property="og:description" content="A strategic dashboard for the Exam Photos project, featuring market analysis, economic modeling, and AI-powered tools for school discovery and assistance.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                } else {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
     <style>
+        :root {
+            color-scheme: light dark;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #020617; /* Slate 950 */
-            color: #F1F5F9; /* Slate 100 */
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        html.dark body {
+            background-color: #020617; /* Slate 950 */
+            color: #F1F5F9; /* Slate 100 */
+        }
+
+        html:not(.dark) body {
+            background-color: #F8FAFC; /* Slate 50 */
+            color: #0F172A; /* Slate 900 */
         }
 
         /* Starry Background */
@@ -38,12 +71,34 @@
             background-size: 200px 200px;
             animation: twinkle 5s infinite;
             opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        html:not(.dark) .stars {
+            opacity: 0;
+            display: none;
         }
         
         @keyframes twinkle {
             0% { opacity: 0.5; transform: translateY(0); }
             50% { opacity: 0.8; }
             100% { opacity: 0.5; transform: translateY(-20px); }
+        }
+
+        /* Ambient day gradient */
+        .day-bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+        }
+
+        html.dark .day-bg-glow {
+            display: none;
         }
 
         /* Custom scrollbar for chat */
@@ -56,29 +111,27 @@
         }
         
         /* Glass effect utility */
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        html.dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+        }
+
+        html:not(.dark) .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 25px -4px rgba(15, 23, 42, 0.06);
         }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
-    "recharts": "https://aistudiocdn.com/recharts@^3.5.0"
-  }
-}
-</script>
 </head>
 <body>
     <div class="stars"></div>
+    <div class="day-bg-glow"></div>
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
